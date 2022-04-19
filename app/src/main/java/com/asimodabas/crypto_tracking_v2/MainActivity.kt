@@ -17,6 +17,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.navArgument
 import androidx.navigation.compose.rememberNavController
 import com.asimodabas.crypto_tracking_v2.ui.theme.CryptoTrackingv2Theme
+import com.asimodabas.crypto_tracking_v2.view.CryptoDetailScreen
+import com.asimodabas.crypto_tracking_v2.view.CryptoListScreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,22 +28,23 @@ class MainActivity : ComponentActivity() {
 
                 val navController = rememberNavController()
 
-                
-                NavHost(navController = navController, startDestination = "crypto_list_screen" ){
 
-                    composable("crypto_list_screen"){
+                NavHost(navController = navController, startDestination = "crypto_list_screen") {
+
+                    composable("crypto_list_screen") {
                         //Screen
+                        CryptoListScreen(navController = navController)
 
                     }
 
                     composable("crypto_detail_screen/{cryptoId}/{cryptoPrice}", arguments = listOf(
-                        navArgument("cryptoId"){
+                        navArgument("cryptoId") {
                             type = NavType.StringType
                         },
-                        navArgument("cryptoPrice"){
-                            type= NavType.StringType
+                        navArgument("cryptoPrice") {
+                            type = NavType.StringType
                         }
-                    )){
+                    )) {
                         //Detail Screen
 
                         val cryptoId = remember {
@@ -50,6 +53,8 @@ class MainActivity : ComponentActivity() {
                         val cryptoPrice = remember {
                             it.arguments?.getString("cryptoPrice")
                         }
+                        CryptoDetailScreen(id = cryptoId ?: "", price =cryptoPrice ?: "" , navController = navController)
+
                     }
                 }
             }
