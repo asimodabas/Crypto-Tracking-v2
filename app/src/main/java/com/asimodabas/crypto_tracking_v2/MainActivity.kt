@@ -19,7 +19,9 @@ import androidx.navigation.compose.rememberNavController
 import com.asimodabas.crypto_tracking_v2.ui.theme.CryptoTrackingv2Theme
 import com.asimodabas.crypto_tracking_v2.view.CryptoDetailScreen
 import com.asimodabas.crypto_tracking_v2.view.CryptoListScreen
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,7 +55,11 @@ class MainActivity : ComponentActivity() {
                         val cryptoPrice = remember {
                             it.arguments?.getString("cryptoPrice")
                         }
-                        CryptoDetailScreen(id = cryptoId ?: "", price =cryptoPrice ?: "" , navController = navController)
+                        CryptoDetailScreen(
+                            id = cryptoId ?: "",
+                            price = cryptoPrice ?: "",
+                            navController = navController
+                        )
 
                     }
                 }
