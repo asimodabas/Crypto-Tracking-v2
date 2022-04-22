@@ -1,5 +1,6 @@
 package com.asimodabas.crypto_tracking_v2.dependencyinjection
 
+import com.asimodabas.crypto_tracking_v2.repository.CryptoRepository
 import com.asimodabas.crypto_tracking_v2.service.CryptoAPI
 import com.asimodabas.crypto_tracking_v2.util.Constants.BASE_URL
 import dagger.Module
@@ -13,6 +14,12 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
+
+    @Singleton
+    @Provides
+    fun provideCryptoRepository(
+        api : CryptoAPI
+    ) = CryptoRepository(api)
 
     @Singleton
     @Provides

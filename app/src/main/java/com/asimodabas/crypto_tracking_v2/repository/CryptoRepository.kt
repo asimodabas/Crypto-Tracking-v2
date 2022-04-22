@@ -13,19 +13,19 @@ import javax.inject.Inject
 class CryptoRepository @Inject constructor(
     private val api: CryptoAPI
 ) {
-    suspend fun getCryptoList():Resource.Resource<CryptoList>{
-        val response =try{
+    suspend fun getCryptoList(): Resource.Resource<CryptoList> {
+        val response = try {
             api.getCryptoList(API_KEY)
-        } catch (e: Exception){
+        } catch (e: Exception) {
             return Resource.Resource.Error("Error.")
         }
         return Resource.Resource.Success(response)
     }
 
-    suspend fun getCrypto(id:String) : Resource.Resource<Crypto>{
+    suspend fun getCrypto(id: String): Resource.Resource<Crypto> {
         val response = try {
-api.getCrypto(API_KEY,id, CALL_ATTRIBUTES)
-        }catch (e: Exception){
+            api.getCrypto(API_KEY, id, CALL_ATTRIBUTES)
+        } catch (e: Exception) {
             return Resource.Resource.Error("Error.")
 
         }
