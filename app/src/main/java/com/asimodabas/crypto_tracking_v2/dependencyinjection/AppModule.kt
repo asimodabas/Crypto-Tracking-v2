@@ -18,12 +18,12 @@ object AppModule {
     @Singleton
     @Provides
     fun provideCryptoRepository(
-        api : CryptoAPI
+        api: CryptoAPI
     ) = CryptoRepository(api)
 
     @Singleton
     @Provides
-    fun provideCryptoApi() : CryptoAPI{
+    fun provideCryptoApi(): CryptoAPI {
         return Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
             .baseUrl(BASE_URL)
