@@ -27,7 +27,6 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             CryptoTrackingv2Theme {
-
                 val navController = rememberNavController()
 
                 NavHost(navController = navController, startDestination = "crypto_list_screen") {
@@ -35,7 +34,6 @@ class MainActivity : ComponentActivity() {
                     composable("crypto_list_screen") {
                         //Screen
                         CryptoListScreen(navController = navController)
-
                     }
 
                     composable("crypto_detail_screen/{cryptoId}/{cryptoPrice}", arguments = listOf(
@@ -47,7 +45,6 @@ class MainActivity : ComponentActivity() {
                         }
                     )) {
                         //Detail Screen
-
                         val cryptoId = remember {
                             it.arguments?.getString("cryptoId")
                         }
@@ -59,7 +56,6 @@ class MainActivity : ComponentActivity() {
                             price = cryptoPrice ?: "",
                             navController = navController
                         )
-
                     }
                 }
             }

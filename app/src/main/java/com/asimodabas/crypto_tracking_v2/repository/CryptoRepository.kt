@@ -27,10 +27,8 @@ class CryptoRepository @Inject constructor(
             api.getCrypto(API_KEY, id, CALL_ATTRIBUTES)
         } catch (e: Exception) {
             return Resource.Resource.Error("Error.")
-
         }
         return Resource.Resource.Success(response)
     }
-
 
 }

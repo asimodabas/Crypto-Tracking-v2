@@ -30,5 +30,4 @@ object AppModule {
             .build()
             .create(CryptoAPI::class.java)
     }
-
 }

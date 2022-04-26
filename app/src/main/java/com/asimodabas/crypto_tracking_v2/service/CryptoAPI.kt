@@ -20,5 +20,4 @@ interface CryptoAPI {
         @Query("ids") id: String,
         @Query("attributes") attributes: String
     ): Crypto
-
 }

@@ -28,26 +28,26 @@ class CryptoListViewModel @Inject constructor(
         loadCryptos()
     }
 
-    fun searchCryptoList(query: String){
-        val listToSearch = if (isSearchingStarting){
+    fun searchCryptoList(query: String) {
+        val listToSearch = if (isSearchingStarting) {
             cryptoList.value
-        }else{
+        } else {
             initialCryptoList
         }
 
         viewModelScope.launch(Dispatchers.Default) {
 
-            if (query.isEmpty()){
+            if (query.isEmpty()) {
                 cryptoList.value = initialCryptoList
                 isSearchingStarting = true
                 return@launch
             }
 
             val results = listToSearch.filter {
-                it.currency.contains(query.trim(),ignoreCase = true)
+                it.currency.contains(query.trim(), ignoreCase = true)
             }
 
-            if (isSearchingStarting){
+            if (isSearchingStarting) {
                 initialCryptoList = cryptoList.value
                 isSearchingStarting = false
             }

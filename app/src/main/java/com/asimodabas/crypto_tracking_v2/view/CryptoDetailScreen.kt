@@ -10,5 +10,4 @@ fun CryptoDetailScreen(
     navController: NavController
 ) {
 
-
 }
