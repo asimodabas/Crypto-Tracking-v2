@@ -17,5 +17,4 @@ class CryptoDetailsViewModel @Inject constructor(
     }
 
 
-
 }

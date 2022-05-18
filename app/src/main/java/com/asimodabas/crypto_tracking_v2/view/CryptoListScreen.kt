@@ -48,7 +48,9 @@ fun CryptoListScreen(
 
             Spacer(modifier = Modifier.height(10.dp))
             //Search
-            SearchBar(hint = "Search...", modifier = Modifier.fillMaxWidth().padding(15.dp)){
+            SearchBar(hint = "Search...", modifier = Modifier
+                .fillMaxWidth()
+                .padding(15.dp)) {
                 //viewModel.searchCryptoList(it)
             }
             Spacer(modifier = Modifier.height(10.dp))
@@ -74,7 +76,7 @@ fun SearchBar(
         mutableStateOf(hint != "")
     }
 
-    Box(modifier = modifier){
+    Box(modifier = modifier) {
         BasicTextField(value = text, onValueChange = {
             text = it
             onSearch(it)
@@ -90,9 +92,11 @@ fun SearchBar(
                     isHintDisplayed = it.isFocused != true && text.isEmpty()
                 })
 
-        if(isHintDisplayed){
-            Text(text = hint, color = Color.LightGray,
-                modifier = Modifier.padding(horizontal = 20.dp, vertical = 10.dp))
+        if (isHintDisplayed) {
+            Text(
+                text = hint, color = Color.LightGray,
+                modifier = Modifier.padding(horizontal = 20.dp, vertical = 10.dp)
+            )
         }
     }
 
