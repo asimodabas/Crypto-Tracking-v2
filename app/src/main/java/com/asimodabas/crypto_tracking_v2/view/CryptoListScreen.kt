@@ -1,6 +1,8 @@
 package com.asimodabas.crypto_tracking_v2.view
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
@@ -9,6 +11,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -29,18 +35,22 @@ fun CryptoListScreen(
         modifier = Modifier.fillMaxSize()
     ) {
 
-        Column { 
-            Text("Crypto Tracking", modifier = Modifier
-                .fillMaxSize()
-                .padding(20.dp),
-            textAlign = TextAlign.Center,
-            fontSize = 45.sp,
-            fontWeight = FontWeight.Bold,
+        Column {
+            Text(
+                "Crypto Tracking", modifier = Modifier
+                    .fillMaxSize()
+                    .padding(20.dp),
+                textAlign = TextAlign.Center,
+                fontSize = 45.sp,
+                fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colors.primary
             )
-            
+
             Spacer(modifier = Modifier.height(10.dp))
             //Search
+            SearchBar(hint = "Search...", modifier = Modifier.fillMaxWidth().padding(15.dp)){
+                //viewModel.searchCryptoList(it)
+            }
             Spacer(modifier = Modifier.height(10.dp))
             //List
         }
@@ -50,18 +60,41 @@ fun CryptoListScreen(
 }
 
 @Composable
-fun SerachBar(
-    modifier : Modifier = Modifier,
-    hint : String = "",
-    onSearch : (String) -> Unit = {}
-){
+fun SearchBar(
+    modifier: Modifier = Modifier,
+    hint: String = "",
+    onSearch: (String) -> Unit = {}
+) {
 
-    var text  by remember {
+    var text by remember {
         mutableStateOf("")
     }
-    BasicTextField(value = text, onValueChange = {
-        text = it
-        onSearch(it)
-    })
+
+    var isHintDisplayed by remember {
+        mutableStateOf(hint != "")
+    }
+
+    Box(modifier = modifier){
+        BasicTextField(value = text, onValueChange = {
+            text = it
+            onSearch(it)
+        }, maxLines = 1,
+            singleLine = true,
+            textStyle = TextStyle.Default,
+            modifier = Modifier
+                .fillMaxWidth()
+                .shadow(5.dp, CircleShape)
+                .background(Color.White, CircleShape)
+                .padding(horizontal = 20.dp, vertical = 10.dp)
+                .onFocusChanged {
+                    isHintDisplayed = it.isFocused != true && text.isEmpty()
+                })
+
+        if(isHintDisplayed){
+            Text(text = hint, color = Color.LightGray,
+                modifier = Modifier.padding(horizontal = 20.dp, vertical = 10.dp))
+        }
+    }
+
 
 }
