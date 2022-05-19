@@ -1,7 +1,9 @@
 package com.asimodabas.crypto_tracking_v2.view
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.MaterialTheme
@@ -22,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.asimodabas.crypto_tracking_v2.model.CryptoListItem
 import com.asimodabas.crypto_tracking_v2.viewmodel.CryptoListViewModel
 
 @Composable
@@ -99,6 +102,31 @@ fun SearchBar(
             )
         }
     }
+}
 
+@Composable
+fun CryptoListView(cryptos:List<CryptoListItem>,navController: NavController) {
+
+}
+
+@Composable
+fun CryptoRow(navController: NavController,crypto:CryptoListItem) {
+
+    Column(modifier = Modifier
+        .fillMaxWidth()
+        .background(color = MaterialTheme.colors.secondary)
+        .clickable {
+            navController.navigate(
+                "crypto_detail_screen/${crypto.currency}/${crypto.price}"
+            )
+        }) {
+
+        Text(text = crypto.currency, style = MaterialTheme.typography.h4, modifier = Modifier.padding(2.dp), fontWeight = FontWeight.Bold,
+        color = MaterialTheme.colors.primary
+        )
+
+        Text(text = crypto.price, style = MaterialTheme.typography.h5, modifier = Modifier.padding(2.dp), fontWeight = FontWeight.Bold,
+            color = MaterialTheme.colors.primaryVariant)
+    }
 
 }
