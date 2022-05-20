@@ -4,14 +4,17 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.focus.onFocusChanged
@@ -24,6 +27,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.asimodabas.crypto_tracking_v2.model.CryptoList
 import com.asimodabas.crypto_tracking_v2.model.CryptoListItem
 import com.asimodabas.crypto_tracking_v2.viewmodel.CryptoListViewModel
 
@@ -51,9 +55,11 @@ fun CryptoListScreen(
 
             Spacer(modifier = Modifier.height(10.dp))
             //Search
-            SearchBar(hint = "Search...", modifier = Modifier
-                .fillMaxWidth()
-                .padding(15.dp)) {
+            SearchBar(
+                hint = "Search...", modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(15.dp)
+            ) {
                 //viewModel.searchCryptoList(it)
             }
             Spacer(modifier = Modifier.height(10.dp))
@@ -105,12 +111,36 @@ fun SearchBar(
 }
 
 @Composable
-fun CryptoListView(cryptos:List<CryptoListItem>,navController: NavController) {
+fun CryptoList(navController: NavController, viewModel: CryptoListViewModel = hiltViewModel()) {
+
+    val cryptoList by remember { viewModel.cryptoList }
+    val errorMessage by remember { viewModel.errorMessage }
+    val isLoading by remember { viewModel.isLoading }
+
+    CryptoListView(cryptos = cryptoList, navController = navController)
+
+    Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
+        if (isLoading) {
+            CircularProgressIndicator(color = MaterialTheme.colors.primary)
+        }
+        if (errorMessage.isNotEmpty()) {
+            //retryView
+        }
+    }
 
 }
 
 @Composable
-fun CryptoRow(navController: NavController,crypto:CryptoListItem) {
+fun CryptoListView(cryptos: List<CryptoListItem>, navController: NavController) {
+    LazyColumn(contentPadding = PaddingValues(5.dp)) {
+        items(cryptos) { crypto ->
+            CryptoRow(navController = navController, crypto = crypto)
+        }
+    }
+}
+
+@Composable
+fun CryptoRow(navController: NavController, crypto: CryptoListItem) {
 
     Column(modifier = Modifier
         .fillMaxWidth()
@@ -121,12 +151,21 @@ fun CryptoRow(navController: NavController,crypto:CryptoListItem) {
             )
         }) {
 
-        Text(text = crypto.currency, style = MaterialTheme.typography.h4, modifier = Modifier.padding(2.dp), fontWeight = FontWeight.Bold,
-        color = MaterialTheme.colors.primary
+        Text(
+            text = crypto.currency,
+            style = MaterialTheme.typography.h4,
+            modifier = Modifier.padding(2.dp),
+            fontWeight = FontWeight.Bold,
+            color = MaterialTheme.colors.primary
         )
 
-        Text(text = crypto.price, style = MaterialTheme.typography.h5, modifier = Modifier.padding(2.dp), fontWeight = FontWeight.Bold,
-            color = MaterialTheme.colors.primaryVariant)
+        Text(
+            text = crypto.price,
+            style = MaterialTheme.typography.h5,
+            modifier = Modifier.padding(2.dp),
+            fontWeight = FontWeight.Bold,
+            color = MaterialTheme.colors.primaryVariant
+        )
     }
 
 }
