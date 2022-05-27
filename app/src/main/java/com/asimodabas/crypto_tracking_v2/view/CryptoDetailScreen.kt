@@ -37,16 +37,29 @@ fun CryptoDetailScreen(
     viewModel: CryptoDetailsViewModel = hiltViewModel()
 ) {
 
+/*
     // -> 1
     val scope = rememberCoroutineScope()
+
     var cryptoItem by remember {
         mutableStateOf<Resource.Resource<Crypto>>(Resource.Resource.Loading())
     }
+
     scope.launch {
         cryptoItem = viewModel.getCrypto(id)
         println(cryptoItem.data)
     }
+*/
 
+    // -> 2
+    var cryptoItem by remember {
+        mutableStateOf<Resource.Resource<Crypto>>(Resource.Resource.Loading())
+    }
+
+    LaunchedEffect(key1 = Unit) {
+        cryptoItem = viewModel.getCrypto(id)
+        println(cryptoItem.data)
+    }
 
     Box(
         modifier = Modifier
@@ -72,8 +85,8 @@ fun CryptoDetailScreen(
                     )
 
                     Image(
-                        painter = rememberImagePainter(data =selectedCrypto.logo_url),
-                        contentDescription =selectedCrypto.name,
+                        painter = rememberImagePainter(data = selectedCrypto.logo_url),
+                        contentDescription = selectedCrypto.name,
                         modifier = Modifier
                             .padding(15.dp)
                             .size(200.dp, 200.dp)
