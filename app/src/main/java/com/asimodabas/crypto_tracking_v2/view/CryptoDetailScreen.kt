@@ -38,9 +38,8 @@ fun CryptoDetailScreen(
 ) {
 
 /*
-    // -> 1
+    // ------> 1
     val scope = rememberCoroutineScope()
-
     var cryptoItem by remember {
         mutableStateOf<Resource.Resource<Crypto>>(Resource.Resource.Loading())
     }
@@ -50,8 +49,8 @@ fun CryptoDetailScreen(
         println(cryptoItem.data)
     }
 */
-
-    // -> 2
+/*
+    // ------> 2
     var cryptoItem by remember {
         mutableStateOf<Resource.Resource<Crypto>>(Resource.Resource.Loading())
     }
@@ -59,6 +58,14 @@ fun CryptoDetailScreen(
     LaunchedEffect(key1 = Unit) {
         cryptoItem = viewModel.getCrypto(id)
         println(cryptoItem.data)
+    }
+*/
+    // ------> 3
+    val cryptoItem by
+    produceState<Resource.Resource<Crypto>>(initialValue = Resource.Resource.Loading()) {
+
+        value = viewModel.getCrypto(id)
+
     }
 
     Box(
