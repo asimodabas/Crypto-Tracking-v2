@@ -8,13 +8,11 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class CryptoDetailsViewModel @Inject constructor(
+class CryptoDetailViewModel @Inject constructor(
     private val repository: CryptoRepository
 ) : ViewModel() {
 
     suspend fun getCrypto(id: String): Resource.Resource<Crypto> {
         return repository.getCrypto(id)
     }
-
-
 }
