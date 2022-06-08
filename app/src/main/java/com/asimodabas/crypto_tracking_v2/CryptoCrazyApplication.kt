@@ -9,5 +9,4 @@ class CryptoCrazyApplication : Application() {
     override fun onCreate() {
         super.onCreate()
     }
-
 }

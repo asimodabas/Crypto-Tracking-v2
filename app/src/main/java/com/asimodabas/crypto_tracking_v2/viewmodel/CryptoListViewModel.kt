@@ -53,7 +53,6 @@ class CryptoListViewModel @Inject constructor(
             }
             cryptoList.value = results
         }
-
     }
 
     fun loadCryptos() {

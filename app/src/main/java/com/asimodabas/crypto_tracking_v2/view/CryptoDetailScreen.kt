@@ -25,8 +25,8 @@ import com.asimodabas.crypto_tracking_v2.viewmodel.CryptoDetailViewModel
 
 @Composable
 fun CryptoDetailScreen(
-    id:String,
-    price:String,
+    id: String,
+    price: String,
     navController: NavController,
     viewModel: CryptoDetailViewModel = hiltViewModel()
 ) {
@@ -58,18 +58,19 @@ fun CryptoDetailScreen(
         value = viewModel.getCrypto(id)
     }.value
 
-
-    Box(modifier = Modifier
-        .fillMaxSize()
-        .background(MaterialTheme.colors.secondary),
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colors.secondary),
         contentAlignment = Alignment.Center,
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            when(cryptoItem) {
+            when (cryptoItem) {
 
                 is Resource.Success -> {
                     val selectedCrypto = cryptoItem.data!![0]
-                    Text(text = selectedCrypto.name,
+                    Text(
+                        text = selectedCrypto.name,
                         style = MaterialTheme.typography.h3,
                         modifier = Modifier.padding(2.dp),
                         fontWeight = FontWeight.Bold,
@@ -77,7 +78,8 @@ fun CryptoDetailScreen(
                         textAlign = TextAlign.Center
                     )
 
-                    Image(painter = rememberImagePainter(data = selectedCrypto.logo_url),
+                    Image(
+                        painter = rememberImagePainter(data = selectedCrypto.logo_url),
                         contentDescription = selectedCrypto.name,
                         modifier = Modifier
                             .padding(16.dp)
@@ -86,15 +88,14 @@ fun CryptoDetailScreen(
                             .border(2.dp, Color.Gray, CircleShape)
                     )
 
-                    Text(text = price,
+                    Text(
+                        text = price,
                         style = MaterialTheme.typography.h4,
                         modifier = Modifier.padding(2.dp),
                         fontWeight = FontWeight.Bold,
                         color = MaterialTheme.colors.primaryVariant,
                         textAlign = TextAlign.Center
-
                     )
-
                 }
 
                 is Resource.Error -> {
@@ -104,9 +105,7 @@ fun CryptoDetailScreen(
                 is Resource.Loading -> {
                     CircularProgressIndicator(color = MaterialTheme.colors.primary)
                 }
-
             }
-
         }
     }
 }

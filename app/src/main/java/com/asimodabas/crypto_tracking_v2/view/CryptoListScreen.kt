@@ -138,7 +138,6 @@ fun CryptoList(
             }
         }
     }
-
 }
 
 @Composable
