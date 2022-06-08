@@ -12,7 +12,7 @@ class CryptoDetailViewModel @Inject constructor(
     private val repository: CryptoRepository
 ) : ViewModel() {
 
-    suspend fun getCrypto(id: String): Resource.Resource<Crypto> {
+    suspend fun getCrypto(id: String): Resource<Crypto> {
         return repository.getCrypto(id)
     }
 }

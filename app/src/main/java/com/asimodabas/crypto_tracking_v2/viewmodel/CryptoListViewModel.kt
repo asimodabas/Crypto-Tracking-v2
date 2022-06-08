@@ -63,7 +63,7 @@ class CryptoListViewModel @Inject constructor(
             val result = repository.getCryptoList()
             when (result) {
 
-                is Resource.Resource.Success -> {
+                is Resource.Success -> {
 
                     val cryptoItems = result.data!!.mapIndexed { index, cryptoListItem ->
                         CryptoListItem(cryptoListItem.currency, cryptoListItem.price)
@@ -73,7 +73,7 @@ class CryptoListViewModel @Inject constructor(
                     cryptoList.value += cryptoItems
                 }
 
-                is Resource.Resource.Error -> {
+                is Resource.Error -> {
                     errorMessage.value = result.message!!
                     isLoading.value = false
                 }

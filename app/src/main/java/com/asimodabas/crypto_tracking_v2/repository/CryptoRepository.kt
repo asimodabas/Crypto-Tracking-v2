@@ -10,25 +10,25 @@ import dagger.hilt.android.scopes.ActivityScoped
 import javax.inject.Inject
 
 @ActivityScoped
-class CryptoRepository @Inject constructor(
+class CryptoRepository@Inject constructor(
     private val api: CryptoAPI
 ) {
-    suspend fun getCryptoList(): Resource.Resource<CryptoList> {
+
+    suspend fun getCryptoList(): Resource<CryptoList> {
         val response = try {
             api.getCryptoList(API_KEY)
-        } catch (e: Exception) {
-            return Resource.Resource.Error("Error.")
+        } catch(e: Exception) {
+            return Resource.Error("Error.")
         }
-        return Resource.Resource.Success(response)
+        return Resource.Success(response)
     }
 
-    suspend fun getCrypto(id: String): Resource.Resource<Crypto> {
+    suspend fun getCrypto(id: String): Resource<Crypto> {
         val response = try {
-            api.getCrypto(API_KEY, id, CALL_ATTRIBUTES)
-        } catch (e: Exception) {
-            return Resource.Resource.Error("Error.")
+            api.getCrypto(API_KEY,id,CALL_ATTRIBUTES)
+        } catch(e: Exception) {
+            return Resource.Error("Error")
         }
-        return Resource.Resource.Success(response)
+        return Resource.Success(response)
     }
-
 }

@@ -1,4 +1,5 @@
 package com.asimodabas.crypto_tracking_v2.view
+
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -35,9 +36,10 @@ fun CryptoListScreen(
         modifier = Modifier.fillMaxSize()
     ) {
         Column {
-            Text("Crypto Crazy",modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 20.dp),
+            Text(
+                "Crypto Tracking", modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 20.dp),
                 textAlign = TextAlign.Center,
                 fontSize = 44.sp,
                 fontWeight = FontWeight.Bold,
@@ -90,7 +92,7 @@ fun SearchBar(
                     isHintDisplayed = it.isFocused != true && text.isEmpty()
                 }
         )
-        if(isHintDisplayed) {
+        if (isHintDisplayed) {
             Text(
                 text = hint,
                 color = Color.LightGray,
@@ -110,16 +112,16 @@ fun CryptoList(
     val errorMessage by remember { viewModel.errorMessage }
     val isLoading by remember { viewModel.isLoading }
 
-    CryptoListView(cryptos = cryptoList,navController = navController)
+    CryptoListView(cryptos = cryptoList, navController = navController)
 
     Box(
         contentAlignment = Alignment.Center,
         modifier = Modifier.fillMaxSize()
     ) {
-        if(isLoading) {
+        if (isLoading) {
             CircularProgressIndicator(color = MaterialTheme.colors.primary)
         }
-        if(errorMessage.isNotEmpty()) {
+        if (errorMessage.isNotEmpty()) {
             RetryView(error = errorMessage) {
                 viewModel.loadCryptos()
             }
@@ -132,13 +134,13 @@ fun CryptoList(
 fun CryptoListView(cryptos: List<CryptoListItem>, navController: NavController) {
     LazyColumn(contentPadding = PaddingValues(5.dp)) {
         items(cryptos) { crypto ->
-            CryptoRow(navController = navController,crypto = crypto)
+            CryptoRow(navController = navController, crypto = crypto)
         }
     }
 }
 
 @Composable
-fun CryptoRow(navController: NavController,crypto: CryptoListItem) {
+fun CryptoRow(navController: NavController, crypto: CryptoListItem) {
     Box() {}
     Column(modifier = Modifier
         .fillMaxWidth()
@@ -149,13 +151,15 @@ fun CryptoRow(navController: NavController,crypto: CryptoListItem) {
             )
         }
     ) {
-        Text(text = crypto.currency,
+        Text(
+            text = crypto.currency,
             style = MaterialTheme.typography.h4,
             modifier = Modifier.padding(2.dp),
             fontWeight = FontWeight.Bold,
             color = MaterialTheme.colors.primary
         )
-        Text(text = crypto.price,
+        Text(
+            text = crypto.price,
             style = MaterialTheme.typography.h5,
             modifier = Modifier.padding(2.dp),
             color = MaterialTheme.colors.primaryVariant

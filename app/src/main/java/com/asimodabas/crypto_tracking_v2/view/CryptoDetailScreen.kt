@@ -4,7 +4,6 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
@@ -22,19 +21,14 @@ import androidx.navigation.NavController
 import coil.compose.rememberImagePainter
 import com.asimodabas.crypto_tracking_v2.model.Crypto
 import com.asimodabas.crypto_tracking_v2.util.Resource
-import com.asimodabas.crypto_tracking_v2.viewmodel.CryptoDetailsViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
-import kotlin.coroutines.CoroutineContext
+import com.asimodabas.crypto_tracking_v2.viewmodel.CryptoDetailViewModel
 
 @Composable
 fun CryptoDetailScreen(
     id:String,
     price:String,
     navController: NavController,
-    viewModel: CryptoDetailsViewModel = hiltViewModel()
+    viewModel: CryptoDetailViewModel = hiltViewModel()
 ) {
 /*
     // ------> 1
@@ -60,7 +54,7 @@ fun CryptoDetailScreen(
     }
 */
     // ------> 3
-    val cryptoItem = produceState<Resource.Resource<Crypto>>(initialValue = Resource.Resource.Loading()) {
+    val cryptoItem = produceState<Resource<Crypto>>(initialValue = Resource.Loading()) {
         value = viewModel.getCrypto(id)
     }.value
 
@@ -73,7 +67,7 @@ fun CryptoDetailScreen(
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             when(cryptoItem) {
 
-                is Resource.Resource.Success -> {
+                is Resource.Success -> {
                     val selectedCrypto = cryptoItem.data!![0]
                     Text(text = selectedCrypto.name,
                         style = MaterialTheme.typography.h3,
@@ -103,11 +97,11 @@ fun CryptoDetailScreen(
 
                 }
 
-                is Resource.Resource.Error -> {
+                is Resource.Error -> {
                     Text(cryptoItem.message!!)
                 }
 
-                is Resource.Resource.Loading -> {
+                is Resource.Loading -> {
                     CircularProgressIndicator(color = MaterialTheme.colors.primary)
                 }
 
