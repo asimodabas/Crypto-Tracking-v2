@@ -1,5 +1,6 @@
 package com.asimodabas.crypto_tracking_v2.view
 
+import android.text.Layout
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -12,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.focus.onFocusChanged
@@ -32,29 +34,38 @@ fun CryptoListScreen(
     viewModel: CryptoListViewModel = hiltViewModel()
 ) {
     Surface(
-        color = MaterialTheme.colors.secondary,
+        color = Color.Yellow,
         modifier = Modifier.fillMaxSize()
     ) {
         Column {
             Text(
-                "Crypto Tracking", modifier = Modifier
+                "CRYPTO", modifier = Modifier
                     .fillMaxWidth()
-                    .padding(top = 20.dp),
+                    .padding(top = 5.dp),
                 textAlign = TextAlign.Center,
-                fontSize = 44.sp,
+                fontSize = 40.sp,
                 fontWeight = FontWeight.Bold,
-                color = MaterialTheme.colors.primary
+                color = MaterialTheme.colors.onBackground
+            )
+            Text(
+                "-TRACKING-", modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 5.dp),
+                textAlign = TextAlign.Center,
+                fontSize = 40.sp,
+                fontWeight = FontWeight.Bold,
+                color = MaterialTheme.colors.onBackground
             )
             Spacer(modifier = Modifier.height(10.dp))
             SearchBar(
                 hint = "Search...",
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(16.dp)
+                    .padding(25.dp)
             ) {
                 viewModel.searchCryptoList(it)
             }
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(15.dp))
             CryptoList(navController = navController)
         }
     }
